@@ -1,0 +1,12 @@
+export const DISCOUNT_PERCENTAGES_BASE = {
+    DEFAULT: 0,
+    STANDARD: 5,
+    SILVER: 10,
+    GOLD: 15,
+};
+export const DISCOUNT_PERCENTAGES_ADDITIONAL = {
+    DEFAULT: 0,
+    STANDARD: 0,
+    SILVER: 0,
+    GOLD: 5,
+};
