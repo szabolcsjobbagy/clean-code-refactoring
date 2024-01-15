@@ -1,31 +1,47 @@
-import { EmployeeManagementSystem, Employee } from "../src/employeeManagementSystemRefactored"
+import {
+	EmployeeRepository,
+	Employee,
+	EmployeeReport,
+} from "../src/employeeManagementSystemRefactored"
 
-describe("EmployeeManagementSystem", () => {
+let employeeRepository: EmployeeRepository
+
+beforeEach(() => {
+	employeeRepository = new EmployeeRepository()
+})
+
+describe("EmployeeRepository", () => {
 	describe("addEmployee", () => {
-		let employeeManagementSystem: EmployeeManagementSystem
-
 		it.each`
 			name      | salary  | expectedOutput
 			${"Jack"} | ${3000} | ${[new Employee("Jack", 3000)]}
 			${"Jill"} | ${2500} | ${[new Employee("Jill", 2500)]}
 			${"Bob"}  | ${0}    | ${[new Employee("Bob", 0)]}
-		`("should add employee (name, salary): $name, $salary to employees list", (testCases) => {
-			// Arrange
-			const { name, salary, expectedOutput } = testCases
-			employeeManagementSystem = new EmployeeManagementSystem()
-			const employee = new Employee(name, salary)
+		`(
+			"should add employee (name, salary): $name, $salary to employee repository",
+			(testCases) => {
+				// Arrange
+				const { name, salary, expectedOutput } = testCases
+				const employee = new Employee(name, salary)
 
-			// Act
-			employeeManagementSystem.addEmployee(employee)
+				// Act
+				employeeRepository.addEmployee(employee)
 
-			// Assert
-			expect(employeeManagementSystem.getEmployees()).toStrictEqual(expectedOutput)
-		})
+				// Assert
+				expect(employeeRepository.getEmployees()).toStrictEqual(expectedOutput)
+			}
+		)
+	})
+})
+
+describe("EmployeeReport", () => {
+	let employeeReport: EmployeeReport
+
+	beforeEach(() => {
+		employeeReport = new EmployeeReport()
 	})
 
 	describe("calculateTotalPayroll", () => {
-		let employeeManagementSystem: EmployeeManagementSystem
-
 		it.each`
 			employee1                     | employee2                     | expectedOutput
 			${new Employee("Jack", 3000)} | ${new Employee("Jill", 2500)} | ${5500}
@@ -35,12 +51,12 @@ describe("EmployeeManagementSystem", () => {
 			(testCases) => {
 				// Arrange
 				const { employee1, employee2, expectedOutput } = testCases
-				employeeManagementSystem = new EmployeeManagementSystem()
 
 				// Act
-				employeeManagementSystem.addEmployee(employee1)
-				employeeManagementSystem.addEmployee(employee2)
-				const totalPayroll = employeeManagementSystem.calculateTotalPayroll()
+				employeeRepository.addEmployee(employee1)
+				employeeRepository.addEmployee(employee2)
+				const exployees = employeeRepository.getEmployees()
+				const totalPayroll = employeeReport.calculateTotalPayroll(exployees)
 
 				// Assert
 				expect(totalPayroll).toBe(expectedOutput)

@@ -1,4 +1,4 @@
-export class EmployeeManagementSystem {
+export class EmployeeRepository {
 	private employees: Employee[] = []
 
 	constructor() {}
@@ -11,11 +11,13 @@ export class EmployeeManagementSystem {
 	public getEmployees(): Employee[] {
 		return this.employees
 	}
+}
 
-	public calculateTotalPayroll(): number {
+export class EmployeeReport {
+	public calculateTotalPayroll(employees: Employee[]): number {
 		let totalPayroll = 0
 
-		for (const employee of this.employees) {
+		for (const employee of employees) {
 			totalPayroll += employee.calculateSalary()
 		}
 		return totalPayroll

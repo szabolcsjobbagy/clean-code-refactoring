@@ -5,7 +5,8 @@ export function calculateDiscountPercentage(membershipLevel) {
     return discountPercentage;
 }
 function getDiscount(membershipLevel, discountPercentagesObject) {
-    if (!(String(membershipLevel).toUpperCase() in discountPercentagesObject))
+    const isMembershipLevelValid = String(membershipLevel).toUpperCase() in discountPercentagesObject;
+    if (!isMembershipLevelValid)
         return discountPercentagesObject["DEFAULT"];
     return discountPercentagesObject[membershipLevel.toUpperCase()];
 }

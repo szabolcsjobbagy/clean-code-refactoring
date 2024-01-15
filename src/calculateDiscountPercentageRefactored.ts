@@ -14,7 +14,8 @@ function getDiscount(
 	membershipLevel: string,
 	discountPercentagesObject: DiscountPercentages
 ): number {
-	if (!(String(membershipLevel).toUpperCase() in discountPercentagesObject))
-		return discountPercentagesObject["DEFAULT"]
+	const isMembershipLevelValid =
+		String(membershipLevel).toUpperCase() in discountPercentagesObject
+	if (!isMembershipLevelValid) return discountPercentagesObject["DEFAULT"]
 	return discountPercentagesObject[membershipLevel.toUpperCase()]
 }

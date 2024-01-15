@@ -1,4 +1,4 @@
-export class EmployeeManagementSystem {
+export class EmployeeRepository {
     constructor() {
         this.employees = [];
     }
@@ -9,9 +9,11 @@ export class EmployeeManagementSystem {
     getEmployees() {
         return this.employees;
     }
-    calculateTotalPayroll() {
+}
+export class EmployeeReport {
+    calculateTotalPayroll(employees) {
         let totalPayroll = 0;
-        for (const employee of this.employees) {
+        for (const employee of employees) {
             totalPayroll += employee.calculateSalary();
         }
         return totalPayroll;
